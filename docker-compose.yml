@@ -1,0 +1,17 @@
+version: "3"
+services:
+  backend:
+    image: node:20-alpine
+    volumes:
+      - ./be_node_jobs:/app # Mount the backend code from the host to the container
+      - backend-data:/app/data # Mounts persistent volume for file storage
+    working_dir: /app # Set the working directory inside the container
+    ports:
+      - "4000:4000" # Exposes port 4000 (adjust as needed)
+    environment:
+      - NODE_ENV=production # Set environment variables if needed
+    command: npm start # Start command for your backend service
+
+volumes:
+  backend-data:
+    driver: local # Persistent volume driver (local storage on the host)

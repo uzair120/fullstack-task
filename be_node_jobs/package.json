@@ -1,0 +1,22 @@
+{
+  "name": "unsplash-jobs-service",
+  "version": "1.0.0",
+  "description": "This service will fetch the data from the unsplash.com and give to FE upon request.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "test",
+    "start": "node app.js",
+    "start:dev": "nodemon app.js"
+  },
+  "author": "uzair.raza20@outlook.com",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.7",
+    "unsplash-js": "^7.0.19",
+    "uuid": "^10.0.0"
+  }
+}
