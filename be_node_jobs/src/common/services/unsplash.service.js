@@ -1,27 +1,26 @@
 import { createApi } from "unsplash-js";
 import * as fetch from "node-fetch";
 
-const accessKey = process.env.UNSPLASH_ACCESS_KEY;
+const accessKey = process.env.UNSPLASH_ACCESS_KEY || "default";
 const orientation = process.env.UNSPLASH_ORIENTATION || "landscape"; // Default 'landscape'
 
-// Check if accessKey is loaded
+// Check for
 if (!accessKey) {
   console.error(
     "Unsplash access key is missing. Make sure it is set in your .env file."
   );
 }
 
-// Setup Unsplash API
 const unsplash = createApi({
   accessKey,
-  fetch: fetch.default,
+  fetch: fetch.default
 });
 
 const getRandomFoodImage = async () => {
   try {
     const response = await unsplash.photos.getRandom({
       query: "food",
-      orientation,
+      orientation
     });
 
     // Check for a successful response
@@ -38,7 +37,6 @@ const getRandomFoodImage = async () => {
       error.message
     );
 
-    // Re-throw the error with more context if needed
     throw new Error(`Error fetching random food image: ${error.message}`);
   }
 };

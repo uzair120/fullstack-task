@@ -25,7 +25,10 @@ const createJob = async (req, res) => {
 
 const getAllJobs = async (req, res) => {
   try {
-    const jobs = await jobService.getAllJobs();
+    const jobs = await jobService.getAllJobs(
+      req.query && req.query.page && parseInt(req.query.page),
+      req.query && req.query.perPage && parseInt(req.query.perPage)
+    );
     res.json(jobs);
   } catch (error) {
     res.status(500).json({ error: "Error fetching jobs" });
@@ -34,7 +37,7 @@ const getAllJobs = async (req, res) => {
 
 /**
  * GET /jobs/:id
- * Get a specific job by ID
+ * Get a specific job by ID.
  * @param {JobId} req
  * @return {status}
  * @return {url}
@@ -55,5 +58,5 @@ const getJobById = async (req, res) => {
 export default {
   createJob,
   getAllJobs,
-  getJobById,
+  getJobById
 };

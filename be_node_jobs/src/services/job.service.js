@@ -3,57 +3,59 @@ import fileRepository from "../common/repositories/file.repository.js";
 import UnsplashService from "../common/services/unsplash.service.js";
 import { logInfo, logError } from "../common/utils/logger.util.js";
 import { status } from "../constants.js";
-
-// Create a new job for a request
 const createJob = async () => {
   const jobId = uuidv4();
   const jobFileName = `${jobId}_${status.PENDING}.json`;
 
-  // Log job creation
-  logInfo(`Creatin new job with ID: ${jobId}`);
+  logInfo(`Creating new job with ID: ${jobId}`);
 
-  // Save the job as pending
-  await fileRepository.saveJob(jobFileName, { status: status.PENDING });
+  const minSec = process.env.JOB_MIN_INTERVAL || 5;
+  const maxSec = process.env.JOB_MAX_INTERVAL || 300;
+  // Simulate a delay between X seconds and Y minutes
+  const delay =
+    (Math.floor(Math.random() * (maxSec / minSec - 1 + 1)) + 1) *
+    (minSec * 1000);
 
-  // for immediate return of job ID using setImmediate
+  const creationTime = new Date().toISOString();
+
+  // Save the job with status and delay
+  await fileRepository.saveJob(jobFileName, {
+    status: status.PENDING,
+    creationTime,
+    delay
+  });
+
+  // setImmediate Return job ID immediately first and then process the job
   setImmediate(async () => {
     try {
-      // Simulate dely of 5 second to 5 minutes. (randomly)
-      const delay = Math.random() * (300000 - 5000) + 5000;
       await new Promise((resolve) => setTimeout(resolve, delay));
 
-      // Get the image from Unsplash API
       const imageUrl = await UnsplashService.getRandomFoodImg();
 
-      // Update the job file as completed
       const newJobFileName = `${jobId}_${status.COMPLETED}.json`;
       await fileRepository.renameJobFile(jobFileName, newJobFileName);
       await fileRepository.saveJob(newJobFileName, {
         status: status.COMPLETED,
         result: imageUrl,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString()
       });
 
       logInfo(`Job ${jobId} completed successfully.`);
     } catch (error) {
-      logError(`ErroR processing job ${jobId}: ${error.message}`);
+      logError(`Error processing job ${jobId}: ${error.message}`);
 
-      // Write the error details to an error file
       const errorJobFileName = `${jobId}_${status.ERROR}.json`;
       const errorData = {
         status: status.ERROR,
         errorMessage: error.message,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString()
       };
 
       try {
-        // Save the error to a new job-specific error file
         await fileRepository.renameJobFile(jobFileName, errorJobFileName);
-
         await fileRepository.saveJob(errorJobFileName, errorData);
         logInfo(`Error details for job ${jobId} saved to ${errorJobFileName}`);
       } catch (fileError) {
-        // Log an additional error if saving the error file fails
         logError(
           `Failed to write error details for job ${jobId}: ${fileError.message}`
         );
@@ -65,13 +67,33 @@ const createJob = async () => {
 };
 
 // Get all jobs based on filenames (job ID and status in file names)
-const getAllJobs = async () => {
-  logInfo(`Getting all job`);
+const getAllJobs = async (page = 1, perPage = 10) => {
+  logInfo(`Getting all jobs ${page},${perPage}`);
+
   const files = await fileRepository.getAllJobFiles();
-  return files.map((fileName) => {
+
+  const totalJobs = files.length;
+
+  const totalPages = Math.ceil(totalJobs / perPage);
+
+  const startIndex = (page - 1) * perPage;
+  const endIndex = Math.min(startIndex + perPage, totalJobs);
+
+  const paginatedFiles = files.slice(startIndex, endIndex);
+
+  // Map the job files to structure (remove .json and return as Id and status separately)
+  const jobs = paginatedFiles.map((fileName) => {
     const [jobId, status] = fileName.replace(".json", "").split("_");
     return { jobId, status };
   });
+
+  return {
+    jobs,
+    totalPages,
+    currentPage: page,
+    perPage,
+    totalJobs
+  };
 };
 
 // Get job by ID from filename
@@ -84,5 +106,5 @@ const getJobById = async (jobId) => {
 export default {
   createJob,
   getAllJobs,
-  getJobById,
+  getJobById
 };
