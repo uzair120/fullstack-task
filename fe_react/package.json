@@ -1,0 +1,36 @@
+{
+  "name": "jobs.frontend.com",
+  "version": "1.0.0",
+  "description": "This app is use to handle and show the unsplash jobs ",
+  "main": "next.config.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.1",
+    "@mui/material": "^6.1.1",
+    "axios": "^1.7.7",
+    "fetch": "^1.1.0",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-react": "^7.24.7",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "babel-jest": "^29.7.0",
+    "eslint": "latest",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "next": "^14.2.13"
+  },
+  "author": "uzair.raza20@outlook.com",
+  "license": "ISC"
+}

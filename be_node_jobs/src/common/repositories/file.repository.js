@@ -67,7 +67,31 @@ const renameJobFile = async (oldFileName, newFileName) => {
   await fs.rename(oldFilePath, newFilePath);
 };
 
-const getAllPendingJobs = async () => {};
+const getAllPendingJobs = async () => {
+  try {
+    // Read all files in the jobs directory
+    const files = await fs.readdir(jobsDir);
+
+    const pendingFiles = files.filter((file) => file.includes(status.PENDING));
+
+    // Read and parse the content of all pending job files
+    const pendingJobs = await Promise.all(
+      pendingFiles.map(async (file) => {
+        const filePath = path.join(jobsDir, file);
+        const fileContent = await fs.readFile(filePath, "utf-8");
+        return {
+          fileName: file,
+          ...JSON.parse(fileContent)
+        };
+      })
+    );
+
+    return pendingJobs;
+  } catch (error) {
+    console.error(`Error getting pending jobs: ${error.message}`);
+    return [];
+  }
+};
 
 export default {
   saveJob,
