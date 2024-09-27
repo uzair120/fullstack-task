@@ -155,7 +155,31 @@ I've included screenshots of the following:
 
 1. Coverage reports for both the frontend and backend applications.  
 2. Screenshots of the frontend in its running state and showing error handling.  
+
    
+## 📊 Code Coverage
+
+### Backend Coverage
+![Backend Coverage](./screenshots/coverage_be.png)
+
+### Frontend Coverage
+![Frontend Coverage](./screenshots/coverage_fe.png)
+
+## 💻 UI Screenshots
+
+### Error Dialog Example
+![Job Manager Error Dialog](./screenshots/job-manager-dialog-error.png)
+
+### Job Manager Error State
+![Job Manager Error](./screenshots/job-manager-error.png)
+
+## 🎬 Video Demo
+
+Click to view the demo video:
+
+[Job Manager Video](./screenshots/job-manager-video.mov)
+
+---
   [Click here to see all](screenshots)
 
    ---
