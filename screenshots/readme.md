@@ -5,24 +5,24 @@ This project allows users to create and manage jobs, utilizing Unsplash API for 
 ## 📊 Code Coverage
 
 ### Backend Coverage
-![Backend Coverage](./screenshots/coverage_be.png)
+![Backend Coverage](./coverage_be.png)
 
 ### Frontend Coverage
-![Frontend Coverage](./screenshots/coverage_fe.png)
+![Frontend Coverage](./coverage_fe.png)
 
 ## 💻 UI Screenshots
 
 ### Error Dialog Example
-![Job Manager Error Dialog](./screenshots/job-manager-dialog-error.png)
+![Job Manager Error Dialog](./job-manager-dialog-error.png)
 
 ### Job Manager Error State
-![Job Manager Error](./screenshots/job-manager-error.png)
+![Job Manager Error](./job-manager-error.png)
 
 ## 🎬 Video Demo
 
 Click to view the demo video:
 
-[Job Manager Video](./screenshots/job-manager-video.mov)
+[Job Manager Video](./job-manager-video.mov)
 
 ---
 
