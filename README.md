@@ -15,6 +15,8 @@
 9. [**Docker Setup Instructions**](#docker-setup-instructions)  
 10. [**Setup Instructions Without Docker**](#setup-instructions-without-docker)  
 11. [**Time Report**](#time-report)  
+12. [**Acknowledgements**](#acknowledgements)  
+13. [**Contact**](#contact)  
     
     ---
 
@@ -100,7 +102,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
    
   ---
 
-  ### **Bottlenecks & Mitigations** {#bottlenecks-&-mitigations}
+  ### **Bottlenecks & Mitigations**
 
 1. **High Load**  
    * **Bottleneck:** Multiple simultaneous jobs can slow down I/O operations.  
@@ -114,7 +116,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
    ---
 
-   ### **Future Improvements** {#future-improvements}
+   ### **Future Improvements** 
 
 * **Database:** For large-scale deployments, a database like MongoDB would help manage job persistence and retrieval more efficiently.  
 * **Real-time Updates:** Instead of polling, we could use WebSockets or Server-Sent Events (SSE) for real-time updates.  
@@ -122,7 +124,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
   ---
 
-  ### **Data for Pending and Completed Jobs** {#data-for-pending-and-completed-jobs}
+  ### **Data for Pending and Completed Jobs** 
 
 Here is an example of what the data for a pending and completed job looks like:
 
@@ -147,7 +149,7 @@ Here is an example of what the data for a pending and completed job looks like:
 ```
   ---
 
-  ### **Screenshots** {#screenshots}
+  ### **Screenshots** 
 
 I've included screenshots of the following:
 
@@ -158,7 +160,7 @@ I've included screenshots of the following:
 
    ---
 
-   ### **Docker Setup Instructions** {#docker-setup-instructions}
+   ### **Docker Setup Instructions** 
 
 You can use Docker to run both the backend and frontend services simultaneously.
 
@@ -216,7 +218,7 @@ npm start
     
   ---
 
-  ### **Time Report** {#time-report}
+  ### **Time Report** 
 
 | Tasks                                | Time Spent |
 |-------------------------------------|------------|
