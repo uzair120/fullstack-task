@@ -2,20 +2,23 @@
 
 #### **Outline:**
 
-- [**Fullstack Job Execution Task**](#fullstack-job-execution-task)
-  - [**Outline:**](#outline)
-- [**Solution Design** {#solution-design}](#solution-design-solution-design)
-  - [**Backend**](#backend)
-  - [**Key Components**](#key-components)
-- [**Improvements** {#improvements}](#improvements-improvements)
-- [**Frontend** {#frontend}](#frontend-frontend)
-- [**Bottlenecks \& Mitigations** {#bottlenecks-\&-mitigations}](#bottlenecks--mitigations-bottlenecks--mitigations)
-- [**Future Improvements** {#future-improvements}](#future-improvements-future-improvements)
-- [**Data for Pending and Completed Jobs** {#data-for-pending-and-completed-jobs}](#data-for-pending-and-completed-jobs-data-for-pending-and-completed-jobs)
-- [**Screenshots** {#screenshots}](#screenshots-screenshots)
-- [**Docker Setup Instructions** {#docker-setup-instructions}](#docker-setup-instructions-docker-setup-instructions)
-- [**Setup Instructions Without Docker** {#setup-instructions-without-docker}](#setup-instructions-without-docker-setup-instructions-without-docker)
-- [**Time Report** {#time-report}](#time-report-time-report)
+1. [**Problem Statement**](#problem-statement)  
+2. [**Solution Design**](#solution-design)  
+   * Backend  
+   * Key Components  
+3. [**Improvements**](#improvements)  
+4. [**Frontend**](#frontend)  
+5. [**Bottlenecks & Mitigations**](#bottlenecks-&-mitigations)  
+6. [**Future Improvements**](#future-improvements)  
+7. [**Data for Pending and Completed Jobs**](#data-for-pending-and-completed-jobs)  
+8. [**Screenshots**](#screenshots)  
+9. [**Docker Setup Instructions**](#docker-setup-instructions)  
+10. [**Setup Instructions Without Docker**](#setup-instructions-without-docker)  
+11. [**Time Report**](#time-report)  
+    
+    ---
+
+    #### **Problem Statement** {#problem-statement}
 
 We need to build a job execution system with the following key functionalities:
 
@@ -32,6 +35,7 @@ We need to build a job execution system with the following key functionalities:
 * Display a list of jobs and their statuses or results.  
 * Create new jobs.  
 * Fetch and display job results once resolved.  
+  
   ---
 
   ### **Solution Design** {#solution-design}
@@ -54,11 +58,13 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 * **Scalability:** Each job has its own file, avoiding bottlenecks from high traffic.  
 * **Lock-free Operations:** Since each job is handled individually, there’s no risk of deadlocks from simultaneous read/write operations.  
 * **Simplicity:** The file-based approach meets the requirements while remaining simple and scalable for moderate load.  
+  
   ---
 
 **2\. Handling High Load** To manage multiple job requests simultaneously:
 
 * Asynchronous programming (Promises) handles I/O-bound tasks (file reads/writes, Unsplash API calls). This allows the system to process multiple jobs concurrently without blocking the event loop.  
+  
   ---
 
 **3\. Job Status Handling** When a job is requested, its current status is returned until resolved. Each job file is updated periodically, and the client polls the backend for updates.
@@ -67,9 +73,11 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
 * **Efficiency:** Polling lets the client know when a job is resolved.  
 * **File-based Persistence:** Job results are saved to files, making them available even after a restart.  
+
   ---
 
 **4\. Unsplash API Integration** For this task, I used the **unsplash-js** library, which simplifies interaction with the Unsplash API by abstracting much of the complexity.
+
 
 ---
 
@@ -79,6 +87,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
 **Solution:** To solve this, we can use queues, Redis, or an in-service mechanism. I concluded that, in our case, we should introduce a mechanism where, upon service restart, all pending jobs are picked up and executed based on their remaining delay time. This ensures no jobs are missed even after a service restart.
 
+
 ---
 
 ### **Frontend** {#frontend}
@@ -87,7 +96,8 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
 * **Job List:** The frontend polls the `/jobs` endpoint to fetch all jobs. Pending jobs show their status, and completed jobs display the Unsplash image.  
 * **Create New Job:** A form allows users to create new jobs, triggering the backend POST request.  
-* **Real-time Updates:** The frontend periodically polls the backend to check for job progress.  
+* **Real-time Updates:** The frontend periodically polls the backend to check for job progress. 
+   
   ---
 
   ### **Bottlenecks & Mitigations** {#bottlenecks-&-mitigations}
@@ -109,6 +119,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 * **Database:** For large-scale deployments, a database like MongoDB would help manage job persistence and retrieval more efficiently.  
 * **Real-time Updates:** Instead of polling, we could use WebSockets or Server-Sent Events (SSE) for real-time updates.  
 * **API Rate Limiting:** Rate limiting would protect the system from overload during high-traffic periods.  
+
   ---
 
   ### **Data for Pending and Completed Jobs** {#data-for-pending-and-completed-jobs}
@@ -117,21 +128,23 @@ Here is an example of what the data for a pending and completed job looks like:
 
 **Pending Job:**
 
-* `{`  
-*   `"status": "pending",`  
-*   `"creationTime": "2024-09-27T12:18:28.789Z",`  
-*   `"delay": 135000`  
-* `}`
-
+```json
+{  
+   "status": "pending",
+   "creationTime": "2024-09-27T12:18:28.789Z",
+   "delay": 135000
+}
+```
 
 **Completed Job:**
 
-* `{`  
-*   `"status": "completed",`  
-*   `"result": "https://images.unsplash.com/photo-144445909471",`  
-*   `"timestamp": "2024-09-27T12:20:45.068Z"`  
-* `}`  
-    
+```json
+{ 
+   "status": "completed",
+   "result": "https://images.unsplash.com/photo-144445909471",
+   "timestamp": "2024-09-27T12:20:45.068Z"
+}  
+```
   ---
 
   ### **Screenshots** {#screenshots}
@@ -140,7 +153,9 @@ I've included screenshots of the following:
 
 1. Coverage reports for both the frontend and backend applications.  
 2. Screenshots of the frontend in its running state and showing error handling.  
-   Click here to see both: [Folder](screenshoots)
+   
+  [Click here to see all](screenshots)
+
    ---
 
    ### **Docker Setup Instructions** {#docker-setup-instructions}
@@ -152,7 +167,7 @@ You can use Docker to run both the backend and frontend services simultaneously.
 1. Ensure Docker and Docker Compose are installed on your system.  
 2. In your project root, run the following command to build and start both services:
 
-* `docker-compose up --build`
+    `docker-compose up --build`
 
 
 This command will:
@@ -160,8 +175,8 @@ This command will:
 * Start the backend on port **4000**.  
 * Start the frontend on port **3000**.  
 * Spin up any other services, like the Unsplash API service, if needed.  
-4. After running the `docker-compose` command, you should be able to access the frontend by navigating to `http://localhost:3000` and the backend API at `http://localhost:4000`.  
-5. To stop the containers, run:  
+1. After running the `docker-compose` command, you should be able to access the frontend by navigating to `http://localhost:3000` and the backend API at `http://localhost:4000`.  
+2. To stop the containers, run:  
    `docker-compose down`  
      
    ---
@@ -176,31 +191,59 @@ If you prefer not to use Docker, follow these steps to run the application:
     
 2. Install dependencies for both backend and frontend:
 
-* `cd backend`  
-* `npm install`  
-* `cd ../frontend`  
-* `npm install`  
-    
+```bash
+  cd backend
+  npm install  
+  cd ../frontend  
+  npm install
+```
+
 3. Start the backend server:
 
-* `cd be_node_jobs`  
-* `npm start`  
+```bash
+cd be_node_jobs
+npm start
+```
+
     
 4. Start the frontend server:
 
-* `cd fe_react`  
-* `npm run dev`  
+```bash
+ cd fe_react
+ npm run dev
+```
+
     
   ---
 
   ### **Time Report** {#time-report}
 
-* Understanding the Problem: 1 hour  
-* Research (Unsplash API, file-based persistence): 3 hours  
-* Backend Development: 4 hours  
-* Frontend Development: 4 hours  
-* Writing Unit Tests (Backend & Frontend): 4 hours  
-* Debugging & Optimization: 2 hours  
-* README Documentation: 1 hour  
-  **Total: 19 hours**
+| Tasks                                | Time Spent |
+|-------------------------------------|------------|
+| Understanding the Problem           | 1 hour     |
+| Research (Unsplash API, file-based persistence) | 3 hours     |
+| Backend Development                 | 4 hours     |
+| Frontend Development                | 4 hours     |
+| Writing Unit Tests (Backend & Frontend) | 4 hours     |
+| Debugging & Optimization            | 2 hours     |
+| README Documentation                | 1 hour     |
+| **Total**                           | **19 hours** |
 
+---
+
+## 🙏 Acknowledgements
+
+Thank you for checking out this project! I truly appreciate your time and interest. If you have any questions, feedback, or suggestions, feel free to reach out to me.
+
+## 📬 Contact
+
+You can reach me at:
+
+- **Email**: [uzair.raza20@outlook.com](mailto:uzair.raza20@outlook.com)
+- **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/uzairraza120)
+
+I would love to hear from you! 😊
+
+---
+
+If you find this project helpful, consider giving it a ⭐ on [GitHub](https://github.com/uzair120/fullstack-task). It helps others find it too!
