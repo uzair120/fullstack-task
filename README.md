@@ -1,4 +1,4 @@
-### **Fullstack Job Execution Task**
+# **Fullstack Job Execution Task**
 
 #### **Outline:**
 
@@ -20,7 +20,7 @@
     
     ---
 
-    #### **Problem Statement**
+## **Problem Statement**
 
 We need to build a job execution system with the following key functionalities:
 
@@ -40,7 +40,7 @@ We need to build a job execution system with the following key functionalities:
   
   ---
 
-  ### **Solution Design** 
+## **Solution Design** 
 
   #### **Backend**
 
@@ -83,7 +83,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
 ---
 
-### **Improvements** 
+## **Improvements** 
 
 **Issue to Handle:** When a job is created and in a pending state (waiting for the delay to finish before running), if the service restarts for any reason, the pending jobs will not be executed.
 
@@ -92,7 +92,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
 ---
 
-### **Frontend** {#frontend}
+## **Frontend** {#frontend}
 
 **Framework:** I used React for the frontend, allowing a component-driven architecture to manage job creation and status/result display.
 
@@ -102,7 +102,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
    
   ---
 
-  ### **Bottlenecks & Mitigations**
+## **Bottlenecks & Mitigations**
 
 1. **High Load**  
    * **Bottleneck:** Multiple simultaneous jobs can slow down I/O operations.  
@@ -116,7 +116,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
    ---
 
-   ### **Future Improvements** 
+## **Future Improvements** 
 
 * **Database:** For large-scale deployments, a database like MongoDB would help manage job persistence and retrieval more efficiently.  
 * **Real-time Updates:** Instead of polling, we could use WebSockets or Server-Sent Events (SSE) for real-time updates.  
@@ -124,7 +124,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
   ---
 
-  ### **Data for Pending and Completed Jobs** 
+## **Data for Pending and Completed Jobs** 
 
 Here is an example of what the data for a pending and completed job looks like:
 
@@ -149,7 +149,7 @@ Here is an example of what the data for a pending and completed job looks like:
 ```
   ---
 
-  ### **Screenshots** 
+## **Screenshots** 
 
 I've included screenshots of the following:
 
@@ -160,7 +160,7 @@ I've included screenshots of the following:
 
    ---
 
-   ### **Docker Setup Instructions** 
+## **Docker Setup Instructions** 
 
 You can use Docker to run both the backend and frontend services simultaneously.
 
@@ -183,7 +183,7 @@ This command will:
      
    ---
 
-   ### **Setup Instructions Without Docker** {#setup-instructions-without-docker}
+## **Setup Instructions Without Docker** {#setup-instructions-without-docker}
 
 If you prefer not to use Docker, follow these steps to run the application:
 
@@ -218,7 +218,7 @@ npm start
     
   ---
 
-  ### **Time Report** 
+## **Time Report** 
 
 | Tasks                                | Time Spent |
 |-------------------------------------|------------|
