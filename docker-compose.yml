@@ -7,11 +7,22 @@ services:
       - backend-data:/app/data # Mounts persistent volume for file storage
     working_dir: /app # Set the working directory inside the container
     ports:
-      - "4000:4000" # Exposes port 4000 (adjust as needed)
-    environment:
-      - NODE_ENV=production # Set environment variables if needed
+      - "4000:4000" # Exposes port 4000 for the backend
+    env_file:
+      - be_node_jobs/.env # Load environment variables from .env
     command: npm start # Start command for your backend service
+
+  frontend:
+    build:
+      context: ./fe_react
+      dockerfile: ./Dockerfile
+    container_name: Jobs_FE
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./fe_react:/app
+      - /app/node_modules
 
 volumes:
   backend-data:
-    driver: local # Persistent volume driver (local storage on the host)
+    driver: local
