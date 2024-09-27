@@ -1,11 +1,9 @@
-### **Fullstack Job Execution Task**
+# **Fullstack Job Execution Task**
 
 #### **Outline:**
 
 1. [**Problem Statement**](#problem-statement)  
 2. [**Solution Design**](#solution-design)  
-   * Backend  
-   * Key Components  
 3. [**Improvements**](#improvements)  
 4. [**Frontend**](#frontend)  
 5. [**Bottlenecks & Mitigations**](#bottlenecks-&-mitigations)  
@@ -15,10 +13,12 @@
 9. [**Docker Setup Instructions**](#docker-setup-instructions)  
 10. [**Setup Instructions Without Docker**](#setup-instructions-without-docker)  
 11. [**Time Report**](#time-report)  
+12. [**Acknowledgements**](#acknowledgements)  
+13. [**Contact**](#contact)  
     
     ---
 
-    #### **Problem Statement** {#problem-statement}
+## **Problem Statement**
 
 We need to build a job execution system with the following key functionalities:
 
@@ -38,7 +38,7 @@ We need to build a job execution system with the following key functionalities:
   
   ---
 
-  ### **Solution Design** {#solution-design}
+## **Solution Design** 
 
   #### **Backend**
 
@@ -81,7 +81,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
 ---
 
-### **Improvements** {#improvements}
+## **Improvements** 
 
 **Issue to Handle:** When a job is created and in a pending state (waiting for the delay to finish before running), if the service restarts for any reason, the pending jobs will not be executed.
 
@@ -90,7 +90,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
 ---
 
-### **Frontend** {#frontend}
+## **Frontend**
 
 **Framework:** I used React for the frontend, allowing a component-driven architecture to manage job creation and status/result display.
 
@@ -100,7 +100,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
    
   ---
 
-  ### **Bottlenecks & Mitigations** {#bottlenecks-&-mitigations}
+## **Bottlenecks & Mitigations**
 
 1. **High Load**  
    * **Bottleneck:** Multiple simultaneous jobs can slow down I/O operations.  
@@ -114,7 +114,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
    ---
 
-   ### **Future Improvements** {#future-improvements}
+## **Future Improvements** 
 
 * **Database:** For large-scale deployments, a database like MongoDB would help manage job persistence and retrieval more efficiently.  
 * **Real-time Updates:** Instead of polling, we could use WebSockets or Server-Sent Events (SSE) for real-time updates.  
@@ -122,7 +122,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
   ---
 
-  ### **Data for Pending and Completed Jobs** {#data-for-pending-and-completed-jobs}
+## **Data for Pending and Completed Jobs** 
 
 Here is an example of what the data for a pending and completed job looks like:
 
@@ -147,18 +147,42 @@ Here is an example of what the data for a pending and completed job looks like:
 ```
   ---
 
-  ### **Screenshots** {#screenshots}
+## **Screenshots** 
 
 I've included screenshots of the following:
 
 1. Coverage reports for both the frontend and backend applications.  
 2. Screenshots of the frontend in its running state and showing error handling.  
+
    
+## 📊 Code Coverage
+
+### Backend Coverage
+![Backend Coverage](./screenshots/coverage_be.png)
+
+### Frontend Coverage
+![Frontend Coverage](./screenshots/coverage_fe.png)
+
+## 💻 UI Screenshots
+
+### Error Dialog Example
+![Job Manager Error Dialog](./screenshots/job-manager-dialog-error.png)
+
+### Job Manager Error State
+![Job Manager Error](./screenshots/job-manager-error.png)
+
+## 🎬 Video Demo
+
+Click to view the demo video:
+
+[Job Manager Video](./screenshots/job-manager-video.mov)
+
+---
   [Click here to see all](screenshots)
 
    ---
 
-   ### **Docker Setup Instructions** {#docker-setup-instructions}
+## **Docker Setup Instructions** 
 
 You can use Docker to run both the backend and frontend services simultaneously.
 
@@ -181,7 +205,7 @@ This command will:
      
    ---
 
-   ### **Setup Instructions Without Docker** {#setup-instructions-without-docker}
+## **Setup Instructions Without Docker** {#setup-instructions-without-docker}
 
 If you prefer not to use Docker, follow these steps to run the application:
 
@@ -216,7 +240,7 @@ npm start
     
   ---
 
-  ### **Time Report** {#time-report}
+## **Time Report** 
 
 | Tasks                                | Time Spent |
 |-------------------------------------|------------|
