@@ -18,7 +18,7 @@
     
     ---
 
-    #### **Problem Statement** {#problem-statement}
+    #### **Problem Statement**
 
 We need to build a job execution system with the following key functionalities:
 
@@ -38,7 +38,7 @@ We need to build a job execution system with the following key functionalities:
   
   ---
 
-  ### **Solution Design** {#solution-design}
+  ### **Solution Design** 
 
   #### **Backend**
 
@@ -81,7 +81,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
 ---
 
-### **Improvements** {#improvements}
+### **Improvements** 
 
 **Issue to Handle:** When a job is created and in a pending state (waiting for the delay to finish before running), if the service restarts for any reason, the pending jobs will not be executed.
 
