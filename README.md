@@ -4,8 +4,6 @@
 
 1. [**Problem Statement**](#problem-statement)  
 2. [**Solution Design**](#solution-design)  
-   * Backend  
-   * Key Components  
 3. [**Improvements**](#improvements)  
 4. [**Frontend**](#frontend)  
 5. [**Bottlenecks & Mitigations**](#bottlenecks-&-mitigations)  
@@ -92,7 +90,7 @@ Each job is saved in a separate file, named as `jobId_status.json`. Upon job com
 
 ---
 
-## **Frontend** {#frontend}
+## **Frontend**
 
 **Framework:** I used React for the frontend, allowing a component-driven architecture to manage job creation and status/result display.
 
